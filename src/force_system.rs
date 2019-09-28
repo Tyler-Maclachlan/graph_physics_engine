@@ -51,23 +51,23 @@ impl ForceSystem {
             let sd = s / distance;
 
             if sd < self.options.theta {
-                forces = forces.add_vec(self.calc_force(distance, dx, dy, 1).to_vec());
+                forces = forces.add_vec(&self.calc_force(distance, dx, dy, 1).to_vec2d());
             } else if branch.divided {
                 if let Some(tl) = &branch.tl {
-                    forces = forces.add_vec(self.get_force_contributions(node, &pos, &tl));
+                    forces = forces.add_vec(&self.get_force_contributions(node, &pos, &tl));
                 }
                 if let Some(tr) = &branch.tr {
-                    forces = forces.add_vec(self.get_force_contributions(node, &pos, &tr));
+                    forces = forces.add_vec(&self.get_force_contributions(node, &pos, &tr));
                 }
                 if let Some(bl) = &branch.bl {
-                    forces = forces.add_vec(self.get_force_contributions(node, &pos, &bl));
+                    forces = forces.add_vec(&self.get_force_contributions(node, &pos, &bl));
                 }
                 if let Some(br) = &branch.br {
-                    forces = forces.add_vec(self.get_force_contributions(node, &pos, &br));
+                    forces = forces.add_vec(&self.get_force_contributions(node, &pos, &br));
                 }
             } else {
                 if !branch.elements.contains_key(node) {
-                    forces = forces.add_vec(self.calc_force(distance, dx, dy, 1).to_vec());
+                    forces = forces.add_vec(&self.calc_force(distance, dx, dy, 1).to_vec2d());
                 }
             }
         }

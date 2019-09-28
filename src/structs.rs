@@ -48,7 +48,7 @@ pub struct Force {
 }
 
 impl Force {
-    pub fn to_vec(&self) -> Vector2d {
+    pub fn to_vec2d(&self) -> Vector2d {
         Vector2d {
             x: self.x,
             y: self.y,
@@ -59,6 +59,15 @@ impl Force {
 pub struct Velocity {
     pub x: f64,
     pub y: f64,
+}
+
+impl Velocity {
+    pub fn to_vec2d(&self) -> Vector2d {
+        Vector2d {
+            x: self.x,
+            y: self.y,
+        }
+    }
 }
 
 pub struct Fixed {
@@ -77,14 +86,14 @@ pub struct Vector2d {
 }
 
 impl Vector2d {
-    pub fn add_vec(&self, vec: Vector2d) -> Vector2d {
+    pub fn add_vec(&self, vec: &Vector2d) -> Vector2d {
         Vector2d {
             x: self.x + vec.x,
             y: self.y + vec.y,
         }
     }
 
-    pub fn sub_vec(&self, vec: Vector2d) -> Vector2d {
+    pub fn sub_vec(&self, vec: &Vector2d) -> Vector2d {
         Vector2d {
             x: self.x - vec.x,
             y: self.y - vec.y,
@@ -92,7 +101,7 @@ impl Vector2d {
     }
 
     pub fn normalize(&self) -> Vector2d {
-        Vector2d { x: 0.0, y: 0.0 }
+        self.divide_scalar(self.len())
     }
 
     pub fn len(&self) -> f64 {
@@ -111,6 +120,13 @@ impl Vector2d {
                 y: self.y,
             }
         }
+    }
+
+    pub fn distance_to_vec(&self, vec: &Vector2d) -> f64 {
+        let dx = vec.x - self.x;
+        let dy = vec.y - self.y;
+
+        (dx * dx + dy * dy).sqrt()
     }
 }
 

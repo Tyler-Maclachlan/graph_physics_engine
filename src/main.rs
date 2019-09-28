@@ -1,7 +1,10 @@
 use std::collections::HashMap;
+mod central_gravity;
 mod force_system;
 mod quad;
+mod spring_system;
 mod structs;
+mod velocity_verlet;
 
 use force_system::*;
 use quad::*;
